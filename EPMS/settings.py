@@ -37,6 +37,21 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sites",
+    # Local
+    "projects",
+    "accounts",
+    "client",
+    "vendor",
+    "finance",
+    # Third-party apps
+    'django_countries',
+    'crispy_forms',
+    'crispy_bootstrap5',
+    # Django-all auth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +69,7 @@ ROOT_URLCONF = "EPMS.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / 'templates'],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -99,7 +114,15 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+    
+]
 
+SITE_ID = 1
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
@@ -117,7 +140,19 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
+STATICFILES_DIRS = [
+    BASE_DIR/"static"
+]
+
+STATIC_ROOT = (BASE_DIR/"asset")
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# AUTH_USER_MODEL = "projects.User"
+AUTH_USER_MODEL = "accounts.CustomUser"
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5" # new
+CRISPY_TEMPLATE_PACK = "bootstrap5"
